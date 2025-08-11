@@ -30,6 +30,8 @@ axs[0].set_axis_off() # esconde os eixos x e y na plotagem
 # calcula o valor do CA (coeficiente de agrupamento do grafo real) e armezana na variavel
 CAReal = nx.average_clustering(G_real) 
 
+#calcula a dendidade da rede 
+densidade_real = nx.density(G_real)
 
 # textos com as medidas que encontramos da rede real
 texto_real = (
@@ -38,6 +40,7 @@ texto_real = (
     f"COEF. AGRUPAMENTO: {CAReal:.5f}\n" # plotando o valor na caixa de texto, com 5 casas após a vírgula
     f"Nós: {num_nos}\n"
     f"Arestas: {num_arestas}\n"
+    f"Densidade: {densidade_real:.5f}"#plotando o valor na caixa de texto com 2 casas após a vírgula
 )
 fig.text(0.10, 0.05, texto_real, fontsize=10, bbox=dict(facecolor='white', alpha=0.7)) # plotagem da caixa de texto
 
@@ -50,6 +53,9 @@ axs[1].set_axis_off() # esconde os eixos x e y na plotagem
 # calcula o valor do CA (coeficiente de agrupamento do grafo aleatório) e armezana na variavel
 CARand = nx.average_clustering(G_rand)
 
+#calcula a dendidade da rede 
+densidade_rand = nx.density(G_rand)
+
 # textos com as medidas que encontramos da rede aleatória
 texto_rand = (
     f"MEDIDAS\n\n"
@@ -57,6 +63,7 @@ texto_rand = (
     f"ORDEM:\n"
     f"Nós: {G_rand.number_of_nodes()}\n"
     f"Arestas: {G_rand.number_of_edges()}\n"
+    f"densidade:{densidade_rand:.5f}"#plotando o valor na caixa de texto com 2 casas após a vírgula
 )
 fig.text(0.55, 0.05, texto_rand, fontsize=10, bbox=dict(facecolor='white', alpha=0.7)) # plotagem da caixa de texto
 
