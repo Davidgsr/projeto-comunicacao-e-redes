@@ -8,6 +8,9 @@ caminho_arquivo = "econ-mahindas.edges"
 G_real = nx.read_edgelist(caminho_arquivo)
 num_nos = G_real.number_of_nodes() # retorna o número de nós da rede
 num_arestas = G_real.number_of_edges() # retorna o número de arestas da rede
+CAReal = nx.average_clustering(G_real) # calcula o valor do CA (coeficiente de agrupamento do grafo real) e armezana na variavel
+densidade_real = nx.density(G_real) # calcula a dendidade da rede
+grauMedioSeparacao_real = nx.average_shortest_path_length(G_real) # calcula o grau médio de separação da rede
 
 # === CRIAÇÃO DA REDE ALEATÓRIA ===
 G_rand = nx.gnm_random_graph(n=num_nos, m=num_arestas, seed=1) # cria uma rede aleatória de n nós e m arestas
@@ -27,20 +30,15 @@ nx.draw_networkx_nodes(G_real, pos_real, node_size=10, node_color='blue', ax=axs
 nx.draw_networkx_edges(G_real, pos_real, alpha=0.3, ax=axs[0]) # desenho das arestas
 axs[0].set_axis_off() # esconde os eixos x e y na plotagem
 
-# calcula o valor do CA (coeficiente de agrupamento do grafo real) e armezana na variavel
-CAReal = nx.average_clustering(G_real) 
-
-#calcula a dendidade da rede 
-densidade_real = nx.density(G_real)
-
 # textos com as medidas que encontramos da rede real
 texto_real = (
     f"MEDIDAS\n\n"
     f"ORDEM:\n"
-    f"COEF. AGRUPAMENTO: {CAReal:.5f}\n" # plotando o valor na caixa de texto, com 5 casas após a vírgula
     f"Nós: {num_nos}\n"
     f"Arestas: {num_arestas}\n"
-    f"Densidade: {densidade_real:.5f}"#plotando o valor na caixa de texto com 2 casas após a vírgula
+    f"Coef. Agrupamento: {CAReal:.5f}\n"
+    f"Densidade: {densidade_real:.5f}\n"
+    f"Grau Médio Sep.: {grauMedioSeparacao_real:.5f}"
 )
 fig.text(0.10, 0.05, texto_real, fontsize=10, bbox=dict(facecolor='white', alpha=0.7)) # plotagem da caixa de texto
 
@@ -49,21 +47,21 @@ axs[1].set_title("REDE ALEATÓRIA") # título do grafo
 nx.draw_networkx_nodes(G_rand, pos_rand, node_size=10, node_color='green', ax=axs[1]) # desenho dos nós
 nx.draw_networkx_edges(G_rand, pos_rand, alpha=0.3, ax=axs[1]) # desenho das arestas
 axs[1].set_axis_off() # esconde os eixos x e y na plotagem
- 
-# calcula o valor do CA (coeficiente de agrupamento do grafo aleatório) e armezana na variavel
-CARand = nx.average_clustering(G_rand)
 
-#calcula a dendidade da rede 
-densidade_rand = nx.density(G_rand)
+# === MEDIDAS DA REDE ALEATÓRIA === 
+CARand = nx.average_clustering(G_rand) # calcula o valor do CA (coeficiente de agrupamento do grafo aleatório) e armezana na variavel
+densidade_rand = nx.density(G_rand) #calcula a dendidade da rede
+grauMedioSeparacao_rand = nx.average_shortest_path_length(G_rand) # calcula o grau médio de separação da rede aleatória
 
 # textos com as medidas que encontramos da rede aleatória
 texto_rand = (
     f"MEDIDAS\n\n"
-    f"COEF. AGRUPAMENTO: {CARand:.5f}\n" # plotando o valor na caixa de texto, com 5 casas após a vírgula
     f"ORDEM:\n"
     f"Nós: {G_rand.number_of_nodes()}\n"
     f"Arestas: {G_rand.number_of_edges()}\n"
-    f"densidade:{densidade_rand:.5f}"#plotando o valor na caixa de texto com 2 casas após a vírgula
+    f"Coef. Agrupamento: {CARand:.5f}\n"
+    f"Densidade:{densidade_rand:.5f}\n"
+    f"Grau Médio Sep.: {grauMedioSeparacao_rand:.5f}\n"
 )
 fig.text(0.55, 0.05, texto_rand, fontsize=10, bbox=dict(facecolor='white', alpha=0.7)) # plotagem da caixa de texto
 
