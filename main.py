@@ -11,7 +11,7 @@ num_arestas = G_real.number_of_edges() # retorna o número de arestas da rede
 CAReal = nx.average_clustering(G_real) # calcula o valor do CA (coeficiente de agrupamento do grafo real) e armezana na variavel
 densidade_real = nx.density(G_real) # calcula a dendidade da rede
 grauMedioSeparacao_real = nx.average_shortest_path_length(G_real) # calcula o grau médio de separação da rede
-
+diâmetro_real = nx.diameter(G_real) # calcula o diâmetro da rede
 # === CRIAÇÃO DA REDE ALEATÓRIA ===
 G_rand = nx.gnm_random_graph(n=num_nos, m=num_arestas, seed=1) # cria uma rede aleatória de n nós e m arestas
 # seed=1 é o ponto de partida, para que sempre seja gerado da mesma maneira a rede aleatória para organizarmos para plotar
@@ -37,6 +37,7 @@ texto_real = (
     f"Nós: {num_nos}\n"
     f"Arestas: {num_arestas}\n"
     f"Coef. Agrupamento: {CAReal:.5f}\n"
+    f"Diâmetro: {diâmetro_real:.5f}\n"
     f"Densidade: {densidade_real:.5f}\n"
     f"Grau Médio Sep.: {grauMedioSeparacao_real:.5f}"
 )
@@ -50,7 +51,8 @@ axs[1].set_axis_off() # esconde os eixos x e y na plotagem
 
 # === MEDIDAS DA REDE ALEATÓRIA === 
 CARand = nx.average_clustering(G_rand) # calcula o valor do CA (coeficiente de agrupamento do grafo aleatório) e armezana na variavel
-densidade_rand = nx.density(G_rand) #calcula a dendidade da rede
+densidade_rand = nx.density(G_rand) #calcula a densidade da rede
+diâmetro_rand = nx.diameter(G_rand) #calcula o diâmetro da rede
 grauMedioSeparacao_rand = nx.average_shortest_path_length(G_rand) # calcula o grau médio de separação da rede aleatória
 
 # textos com as medidas que encontramos da rede aleatória
@@ -60,6 +62,7 @@ texto_rand = (
     f"Nós: {G_rand.number_of_nodes()}\n"
     f"Arestas: {G_rand.number_of_edges()}\n"
     f"Coef. Agrupamento: {CARand:.5f}\n"
+    f"Diâmetro: {diâmetro_rand:.5f}\n"
     f"Densidade:{densidade_rand:.5f}\n"
     f"Grau Médio Sep.: {grauMedioSeparacao_rand:.5f}\n"
 )
